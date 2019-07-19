@@ -1,106 +1,47 @@
- p:hover{
-        color: yellow;
-      }
-      h2:hover{
-        color: rgb(36, 125, 167);
-      }
-      .topbar{
-        background-color:rgb(71, 36, 46);
-       
-        color:whitesmoke;
-        
-      }
-      .top{
-        height: 50px;
+body{
+  background-color: rgb(12, 3, 3);
+}
 
-      }
-      .headline{
-        width:800px;
-        float:right;
-        text-align: right;
-        font-style: italic;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        margin-right: 100px;
-        margin-top: 50px;
-        }
-        .texta{
-          text-align: center;
-          font-style: italic;
-        }
-      .introbox{
-        margin-top: -20px;
-        margin-left: 100px;
-        height: 200px;
-        width: 1000px;
-        background-color: rgb(71, 36, 46);
-        border-radius: 50%;
-       
-      }
-      .introtext{
-        text-align: center;
-        margin-top: 70px;
 
-      }
-      .topheight{
-        height:1px;
-        
-      }
-      .floatright{
-        float: right;
-        
-      }
-      .profilepic{
-        height:150px;
-        width:150px;
-        border-radius: 50%;
-        margin-left:100px;
-      }
-      .mailstyle{
-        height:25px;
-        width: 30px;
-        border-radius: 40%;
-        
-      }
-      .image{
-        height:30px;
-        width:30px;
-        border-radius: 50%;
-        
+.background{
+  background-color: black;
+}
+.divfont{
+  width: 30%
+}
+img{
+  margin-left: 70px;
+  height:230px;
+  width: 230px;
+  border-radius: 50%
+  
+}
+.textwhite{
+  color: white;
+}
+.skillheader{
+  text-align: center;
+  font-style: italic;
+  color :white;
+  background-color: rgb(73, 107, 122);
+  margin-bottom: 80px;
+  margin-top: 50px;
+}
+.skillimage{
+  height:100px;
+  width: 155px;
+  background-color:rgb(146, 100, 131);
+  border-radius: 40%
+}
+.skillStyle{
+  display: block;
+  float:left;
+  height:200px;
+  width: 180px;
+ }
+@media only screen and (min-width:1198px){
+  .divfont{
+      width: 30%
+  }
 
-      }
-      .skillheader{
-        text-align: center;
-        font-style: italic;
-        color :white;
-        background-color: rgb(80, 57, 57);
-        margin-bottom: 80px;
-        margin-top: 50px;
-      }
-      .skillimage{
-        height:150px;
-        width: 200px;
-        background-color:rgb(146, 100, 131);
-        border-radius: 40%
-      }
-      .skillStyle{
-        display: block;
-        float:left;
-        height:280px;
-        width: 270px;
-       }
-      .font{
-        font-size: 10px;
-
-      }
-      .contactstyle{
-        text-align: center;
-        padding: 30px;
-        color: white;
-      
-        
-      }
-      .linegap{
-        padding:30px;
-
-      }
-      
+}
