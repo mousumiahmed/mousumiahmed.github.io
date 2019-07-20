@@ -39,6 +39,18 @@ img{
   height:200px;
   width: 180px;
  }
+ h1:hover{
+     color: rgb(116, 19, 56);
+ }
+ h2:hover{
+     color: red;
+ }
+ a:hover{
+     color: orange;
+ }
+ p:hover{
+     color: rgb(204, 89, 13);
+ }
 @media only screen and (min-width:1198px){
   .divfont{
       width: 30%
