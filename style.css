@@ -1,59 +1,99 @@
-body{
-  background-color: rgb(12, 3, 3);
+
+.imagestyle{
+    height: 450px;
+    width: 450ps;
+}
+.skill{
+    font-family: 'Satisfy', cursive;
+    color:blueviolet;
+    font-size: 25PX;
+
+}
+.name{   
+    color:rgb(67, 23, 107);
+    font-size: 50px;
+    text-shadow: 1px 5px #00eeff;
 }
 
+.b{
+    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
+.iconstyle{
+    height: 100px;
+    width: 100px;
+    border-radius: 2px;
+}
+.prostyle{
+    height: 150px;
+    background-color: #4facfe;
+    
+}
+.project:hover{
+    -webkit-box-shadow:-1px 9px 40px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow:-1px 9px 40px -12px rgba(0,0,0,0.75);
+    box-shadow: -1px 9px 40px -12px rgba(0, 0, 0,0.75)
+    
 
-.background{
-  background-color: black;
 }
-.divfont{
-  width: 30%
+.logo{
+    height: 50px;
+    width:50px;
 }
-img{
-  margin-left: 70px;
-  height:230px;
-  width: 230px;
-  border-radius: 50%
-  
+.profont{
+    font-size: 12px;
+
 }
-.textwhite{
-  color: white;
+.social{
+    list-style-type: none;
+    float: right;
+    color: #fff;
+    
+
+	
 }
-.skillheader{
-  text-align: center;
-  font-style: italic;
-  color :white;
-  background-color: rgb(73, 107, 122);
-  margin-bottom: 80px;
-  margin-top: 50px;
+.bgimg{
+    background-image: url("https://images.unsplash.com/photo-1560878956-86337fa891a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60") ;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    height:100%;
+
+ 
+    
 }
-.skillimage{
-  height:100px;
-  width: 155px;
-  background-color:rgb(146, 100, 131);
-  border-radius: 40%
+
+@media (min-width: 576px) {
+    .imagestyle{
+        height: 450px;
+        width: 450px;
+    }
+    .skill{
+        font-family: 'Satisfy', cursive;
+        color:blueviolet;
+        font-size: 25PX;
+    
+    }
+    .name{   
+        color:rgb(67, 23, 107);
+        font-size: 50px;
+        text-shadow: 1px 5px #00eeff;
+    }
+    .iconstyle{
+        height: 100px;
+        width: 100px;
+        border-radius: 2px;
+    }
+    .prostyle{
+        height: 150px;
+        background-color: #4facfe;
+        
+    }
+    .logo{
+    height: 50px;
+    width:50px;
 }
-.skillStyle{
-  display: block;
-  float:left;
-  height:200px;
-  width: 180px;
- }
- h1:hover{
-     color: rgb(116, 19, 56);
- }
- h2:hover{
-     color: red;
- }
- a:hover{
-     color: orange;
- }
- p:hover{
-     color: rgb(204, 89, 13);
- }
-@media only screen and (min-width:1198px){
-  .divfont{
-      width: 30%
-  }
+.profont{
+    font-size: 12px;
+
+}
 
 }
