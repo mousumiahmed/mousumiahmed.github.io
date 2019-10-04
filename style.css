@@ -1,4 +1,4 @@
-@media (min-width: 480px) {
+@media (min-width: 768px) {
   /* show 3 items */
   .carousel-inner .active,
   .carousel-inner .active + .carousel-item,
