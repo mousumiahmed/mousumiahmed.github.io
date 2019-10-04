@@ -1,99 +1,163 @@
+@media (min-width: 480px) {
+  /* show 3 items */
+  .carousel-inner .active,
+  .carousel-inner .active + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item {
+    display: block;
+  }
+
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item {
+    transition: none;
+  }
+
+  .carousel-inner .carousel-item-next,
+  .carousel-inner .carousel-item-prev {
+    position: relative;
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+
+  .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item {
+    position: absolute;
+    top: 0;
+    right: -33.3333%;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* left or forward direction */
+  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+  .carousel-item-next.carousel-item-left + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item {
+    position: relative;
+    -webkit-transform: translate3d(-100%, 0, 0);
+            transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  /* farthest right hidden item must be abso position for animations */
+  .carousel-inner .carousel-item-prev.carousel-item-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* right or prev direction */
+  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+  .carousel-item-prev.carousel-item-right + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item {
+    position: relative;
+    -webkit-transform: translate3d(100%, 0, 0);
+            transform: translate3d(100%, 0, 0);
+    visibility: visible;
+    display: block;
+    visibility: visible;
+  }
+}
 
 .imagestyle{
-    height: 450px;
-    width: 450ps;
+  border-radius: 50%;
+  border:10px solid #48B1BF;
+  height:150px;
+  width: 150px;
 }
-.skill{
-    font-family: 'Satisfy', cursive;
-    color:blueviolet;
-    font-size: 25PX;
-
+.smallboll{
+  height:20px;
+  width:20px;
+  border-radius: 50%;
+  background-color: #48B1BF;
 }
-.name{   
-    color:rgb(67, 23, 107);
-    font-size: 50px;
-    text-shadow: 1px 5px #00eeff;
-}
-
-.b{
-    background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-}
-.iconstyle{
-    height: 100px;
-    width: 100px;
-    border-radius: 2px;
-}
-.prostyle{
-    height: 150px;
-    background-color: #4facfe;
-    
-}
-.project:hover{
-    -webkit-box-shadow:-1px 9px 40px -12px rgba(0,0,0,0.75);
-    -moz-box-shadow:-1px 9px 40px -12px rgba(0,0,0,0.75);
-    box-shadow: -1px 9px 40px -12px rgba(0, 0, 0,0.75)
-    
-
-}
-.logo{
-    height: 50px;
-    width:50px;
-}
-.profont{
-    font-size: 12px;
-
-}
-.social{
-    list-style-type: none;
-    float: right;
-    color: #fff;
-    
-
-	
-}
-.bgimg{
-    background-image: url("https://images.unsplash.com/photo-1560878956-86337fa891a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60") ;
-    background-size: 100% 100%;
-    background-attachment: fixed;
-    height:100%;
-
- 
-    
+.nameheader{
+  font-family: open sans;
+  color: #3C5E9B;
 }
 
-@media (min-width: 576px) {
-    .imagestyle{
-        height: 450px;
-        width: 450px;
-    }
-    .skill{
-        font-family: 'Satisfy', cursive;
-        color:blueviolet;
-        font-size: 25PX;
-    
-    }
-    .name{   
-        color:rgb(67, 23, 107);
-        font-size: 50px;
-        text-shadow: 1px 5px #00eeff;
-    }
-    .iconstyle{
-        height: 100px;
-        width: 100px;
-        border-radius: 2px;
-    }
-    .prostyle{
-        height: 150px;
-        background-color: #4facfe;
-        
-    }
-    .logo{
-    height: 50px;
-    width:50px;
+.card{
+  width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
 }
-.profont{
-    font-size: 12px;
-
+/*progress bar */
+.progress {
+  width: 135px;
+  height: 135px;
+  background: none;
+  position: relative;
 }
 
+.progress::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 18px solid #eee;
+  position: absolute;
+}
+
+.progress>span {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+.progress .progress-left {
+  left: 0;
+}
+
+.progress .progress-bar {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border-width: 18px;
+  border-style: solid;
+  position: absolute;
+  top: 0;
+}
+
+.progress .progress-left .progress-bar {
+  left: 100%;
+  border-top-right-radius: 80px;
+  border-bottom-right-radius: 80px;
+  border-left: 0;
+  -webkit-transform-origin: center left;
+  transform-origin: center left;
+}
+
+.progress .progress-right {
+  right: 0;
+}
+
+.progress .progress-right .progress-bar {
+  left: -100%;
+  border-top-left-radius: 80px;
+  border-bottom-left-radius: 80px;
+  border-right: 0;
+  -webkit-transform-origin: center right;
+  transform-origin: center right;
+}
+
+
+.progress .progress-value {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.text-gray {
+  color: #aaa;
+}
+
+div.h4 {
+  line-height: 1rem;
 }
