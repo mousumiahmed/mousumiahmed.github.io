@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Mousmi Mixbyte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -19,6 +20,12 @@
                 <a href="#services">Services</a>
                 <a href="#contact">Contact</a>
             </nav>
+        </div>
+        <div class="social-float">
+            <a href="https://www.facebook.com/groups/663125633219420"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fmousmi_mixbyte%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExd2tTTFE3Zk1RbVU2dVJpawEeimiKRfNbx-cDm4O5xElUxy34b8P5Ui0ybpZwHmJqIwyAeT8AOjSAYeTLlqw_aem_na9XA_bFbS1cL0V8LO7wZA&h=AT1FnCgpXsuqvVx4zEt9JMnc43YrOa4bidx7oLrA0Izwgzb_eUrMLKjSHDUzDgtOoqMU-ygum2JyYxScDQjh5TCeJS1xWEdQar6iGhwNrpmVgacEG0-M7B4IJU621fCZ3snY1doAmKUVuBXbS56j"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/mousumi-mixbyte/"><i class="fab fa-linkedin-in"></i></a>
         </div>
     </header>
 
@@ -95,10 +102,59 @@ By combining these technologies, I design solutions that are not only scalable a
                 <button type="submit">Submit</button>
             </form> -->
         </div>
+
+            <div class="chat-box">
+                 <div class="chat-widget">
+                <div class="chat-header">Online Chat</div>
+                <div class="chat-body" id="chat-body">
+                <div class="message bot">Hi! How can I help you today?</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Type your message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+
+            </div>
+    </div>
     </section>
 
     <footer>
         <p>&copy; 2025 Modern Portfolio. All rights reserved.</p>
     </footer>
+
+    <script>
+        const chatBody = document.getElementById('chat-body');
+        const chatInput = document.getElementById('chat-input');
+
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if(text === '') return;
+
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.classList.add('message', 'user');
+            userMsg.textContent = text;
+            chatBody.appendChild(userMsg);
+
+            chatInput.value = '';
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // Simulate bot response
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.classList.add('message', 'bot');
+                botMsg.textContent = "Thanks for your message!";
+                chatBody.appendChild(botMsg);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }, 1000);
+        }
+
+        // Send message on Enter key
+        chatInput.addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
 </body>
 </html>

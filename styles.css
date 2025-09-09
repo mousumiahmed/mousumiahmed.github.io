@@ -132,3 +132,97 @@ footer {
     padding: 20px;
     font-size: smaller;
 }
+.social-float {
+  position:fixed;
+  top:50%;
+  left:10px;
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+.social-float a {
+  background:#333;
+  color:#fff;
+  padding:10px;
+  border-radius:50%;
+  text-align:center;
+  /* font-size:18px; */
+  transition:0.3s;
+}
+.social-float a:hover { background:#ff09b5; transform:scale(1.1); }
+
+.chat-box{
+    float: right;
+    margin-right:-20px
+}
+.chat-widget {
+            width: 300px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(49, 103, 191, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border:1px solid #ff09b5;
+            
+            
+            
+        }
+        .chat-header {
+            background: #060707; transform:scale(1.1); 
+            color: white;
+            padding: 12px;
+            text-align: center;
+            border:1px solid #ff09b5
+        }
+        .chat-body {
+            padding: 10px;
+            flex: 1;
+            overflow-y: auto;
+            height: 300px;
+        }
+        .message {
+            margin: 10px 0;
+            padding: 8px 12px;
+            border-radius: 20px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .message.user {
+            background: #4CAF50;
+            color: white;
+            align-self: flex-end;
+        }
+        .message.bot {
+            background: #ddd;
+            color: #333;
+            align-self: flex-start;
+        }
+        .chat-footer {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+        .chat-footer input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+            border-radius: 0 0 0 10px;
+        }
+        .chat-footer button {
+            background: #151214; transform:scale(1.1); 
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.3s;
+            border:1px solid #ff09b5
+        }
+        .chat-footer button:hover {
+            background: #ff09b5; transform:scale(1.1); 
+        }
+        .chat-header:hover{
+            background: #ff09b5; transform:scale(1.1); 
+        }
