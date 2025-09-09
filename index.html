@@ -104,8 +104,11 @@ By combining these technologies, I design solutions that are not only scalable a
         </div>
 
             <div class="chat-box">
-                 <div class="chat-widget">
-                <div class="chat-header">Online Chat</div>
+                 <div class="chat-widget" id="chat-widget">
+                <div class="chat-header">
+                    Online Chat
+                    <button class="close-btn" onclick="closeChat()">✖</button>
+                </div>
                 <div class="chat-body" id="chat-body">
                 <div class="message bot">Hi! How can I help you today?</div>
         </div>
@@ -125,6 +128,7 @@ By combining these technologies, I design solutions that are not only scalable a
     <script>
         const chatBody = document.getElementById('chat-body');
         const chatInput = document.getElementById('chat-input');
+        const chatWidget = document.getElementById('chat-widget');
 
         function sendMessage() {
             const text = chatInput.value.trim();
@@ -155,6 +159,9 @@ By combining these technologies, I design solutions that are not only scalable a
                 sendMessage();
             }
         });
+        function closeChat() {
+            chatWidget.style.display = 'none';
+        }
     </script>
 </body>
 </html>
