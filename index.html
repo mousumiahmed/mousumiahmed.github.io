@@ -115,6 +115,7 @@ By combining these technologies, I design solutions that are not only scalable a
         <div class="chat-footer">
             <input type="text" id="chat-input" placeholder="Type your message..." />
             <button onclick="sendMessage()">Send</button>
+            <pre id="output"></pre>
         </div>
 
             </div>
@@ -142,7 +143,86 @@ By combining these technologies, I design solutions that are not only scalable a
 
             chatInput.value = '';
             chatBody.scrollTop = chatBody.scrollHeight;
+                // console.log("Message sent:", text);
+                // console.log("Chat widget:", chatWidget);
+                // console.log("Chat body:", chatBody);
+                // console.log("Chat input:", chatInput);
+                const messageBody =[];
+                const inputs = document.querySelectorAll('.message.bot ,.message.user');
+                // const input_user = document.querySelectorAll('.message.user');
+                let chatobj = {}
+                inputs.forEach((messageDiv,index) => {
+                     //console.log(`Message ${(index + 1)%2==1?'Bot':'User'}:`, messageDiv.textContent.trim());
+                    //  messageBody.push(`Message ${(index + 1)%2==1?'Bot':'User'}: ${messageDiv.textContent.trim()}`);
+                    //  const obj = {role:key,content:messageDiv.textContent.trim()};
+                    //     messageBody.push(obj);
+                    chatobj = {role:(index + 1)%2==1?'bot':'user',content:messageDiv.textContent.trim()};
+                    messageBody.push(chatobj);
+                });
+                // console.log("Message body array:", messageBody);
+                // input_user.forEach((messageDiv, index) => {
+                //      console.log(`Message bot:`, messageDiv.textContent.trim());
+                // });
 
+                
+               
+                // chatmessagelist("user",`${text}`);
+                // let chatData =[];  
+                // chatData.push(chatobj);
+                // console.log("Chat data array:", chatData);
+                // const obj = {role:"user",content:text};
+                // // console.log("Message object:", obj);
+                // chatData.push(obj);
+                // console.log("Message list:", chatData);
+                localStorage.setItem("chatMessages", JSON.stringify(messageBody));
+
+
+                // const jsonString = JSON.stringify(chatData, null, 4);
+                // const jsonString = JSON.stringify(localStorage.getItem("chatMessages"), null, 4);
+                // const blob = new Blob([jsonString], { type: "application/json" });
+                // console.log("Blob created:", blob);
+                // const a = document.createElement("a");
+                // a.href= URL.createObjectURL(blob);
+                // a.download = "chat_data.json";
+                // document.body.appendChild(a);
+                // a.click();
+                // document.body.removeChild(a);
+
+
+                const chatMessages = JSON.parse(localStorage.getItem("chatMessages") || "[]");
+                const reader = new FileReader();
+
+                reader.onload = function() {
+                    const content = reader.result;
+                console.log("Blob content:", content);
+                // document.getElementById("output").textContent = content;
+                // const newBlob = new Blob([content], { type: "application/json" });
+                // saveAs(newBlob, 'data.json');
+
+                // const a = document.createElement("a");
+                // a.href = URL.createObjectURL(newBlob);
+                // a.download = "chatMessages.json";
+                // document.body.appendChild(a);
+                // a.click();
+                // document.body.removeChild(a);
+                //     URL.revokeObjectURL(a.href); // Clean up the URL object
+
+                    // console.log(reader.result); // Logs the content
+                    // document.body.innerText = reader.result; // Shows it on the page
+                };
+
+                // reader.readAsText(chatMessages);
+                reader.readAsDataURL(new Blob([JSON.stringify(chatMessages, null, 4)], { type: "application/json" }));
+
+                
+
+                // localStorage.setItem("messages", JSON.stringify(messagelist));
+                // var storedMessages = localStorage.getItem("messages");
+                // console.log("Stored messages:", JSON.parse(storedMessages));
+                // messagelist.push({role:"system",content:"You are a helpful assistant."});
+                // // console.log("Updated message list:", messagelist);
+                // messagelist.push({role:"assistant",content:"Thanks for your message!"});
+                // console.log("Final message list:", messagelist);
             // Simulate bot response
             setTimeout(() => {
                 const botMsg = document.createElement('div');
@@ -162,6 +242,14 @@ By combining these technologies, I design solutions that are not only scalable a
         function closeChat() {
             chatWidget.style.display = 'none';
         }
+        //  let chatData =[];  
+        // function chatmessagelist(sender, messageText){
+        //     const obj = {role:sender,content:messageText};
+                    
+        //     chatData.push(obj);
+            
+            
+        //     }
     </script>
 </body>
 </html>
