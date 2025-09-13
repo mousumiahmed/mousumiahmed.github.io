@@ -19,6 +19,7 @@
                 <a href="#projects">About</a>
                 <a href="#services">Services</a>
                 <a href="#contact">Contact</a>
+                <a href="login.html">Admin</a>
             </nav>
         </div>
         <div class="social-float">
@@ -102,6 +103,7 @@ By combining these technologies, I design solutions that are not only scalable a
                 <button type="submit">Submit</button>
             </form> -->
         </div>
+        
 
             <div class="chat-box">
                  <div class="chat-widget" id="chat-widget">
@@ -110,7 +112,7 @@ By combining these technologies, I design solutions that are not only scalable a
                     <button class="close-btn" onclick="closeChat()">✖</button>
                 </div>
                 <div class="chat-body" id="chat-body">
-                <div class="message bot">Hi! How can I help you today?</div>
+                <div class="message bot">Hi! How can I help you today?<span>pls enter your mail id</span> </div>
         </div>
         <div class="chat-footer">
             <input type="text" id="chat-input" placeholder="Type your message..." />
@@ -191,10 +193,11 @@ By combining these technologies, I design solutions that are not only scalable a
 
                 const chatMessages = JSON.parse(localStorage.getItem("chatMessages") || "[]");
                 const reader = new FileReader();
-
+                
                 reader.onload = function() {
                     const content = reader.result;
-                console.log("Blob content:", content);
+                // console.log("Blob content:", content);
+                localStorage.setItem("chatMessagesUrl", content);
                 // document.getElementById("output").textContent = content;
                 // const newBlob = new Blob([content], { type: "application/json" });
                 // saveAs(newBlob, 'data.json');
@@ -241,6 +244,26 @@ By combining these technologies, I design solutions that are not only scalable a
         });
         function closeChat() {
             chatWidget.style.display = 'none';
+
+            const apiUrl = 'http://localhost:5000/add-url';  // Replace with your API endpoint
+        const data = {
+            url: localStorage.getItem("chatMessagesUrl"),
+            created_at: new Date().toISOString()
+        };
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'  // Sending JSON data
+        },
+        body: JSON.stringify(data)  // Convert JavaScript object to JSON
+        })
+        .then(response => response.json())  // Parse JSON response
+        .then(result => {
+            console.log('Success:', result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         }
         //  let chatData =[];  
         // function chatmessagelist(sender, messageText){
@@ -250,6 +273,11 @@ By combining these technologies, I design solutions that are not only scalable a
             
             
         //     }
+
+        // Send POST request
+
+        
+
     </script>
 </body>
 </html>

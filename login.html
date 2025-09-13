@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin Login Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-box {
+            width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .login-box h2, .dashboard h2 {
+            margin-bottom: 20px;
+        }
+        .login-box input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #211f1f;
+            border-radius: 4px;
+        }
+        .login-box button {
+            width: 95%;
+            padding: 10px;
+            background-color: #060707; transform:scale(1.1);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .login-box button:hover {
+            background-color: #ff09b5; transform:scale(1.1);
+        }
+        .dashboard {
+            display: none;
+            width: 80%;
+            text-align: center;
+            padding: 20px;
+            margin: auto;
+        }
+        .dashboard button {
+            padding: 10px 20px;
+            background-color: #ff09b5; transform:scale(1.1); 
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .dashboard button:hover {
+            background: #ff09b5; transform:scale(1.1); 
+        }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #2b2222;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: small;
+           color: #f4f6f8;
+        }
+        caption {
+            caption-side: top;
+            text-align: left;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        th, td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        thead {
+            background-color: #6b5f5f;
+            color: white
+        }
+        tbody tr:nth-child(even) {
+            background-color: #6b5f5f;
+        }
+        tbody tr:hover {
+            background-color: #ff09b5; transform:scale(1.1);
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Login Form -->
+        <div class="login-box" id="loginBox">
+            <h2>Admin Login</h2>
+            <input type="text" id="username" placeholder="Username" />
+            <input type="password" id="password" placeholder="Password" />
+            <button onclick="login()">Login</button>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard" id="dashboard">
+            <h2>Welcome, Admin!</h2>
+            <p>You are now logged into the admin dashboard.</p>
+            <!-- <input type="file" id="fileInput" accept=".json" /> -->
+            <!-- <div id="dataDisplay"></div> -->
+            <table id="chatTable">
+        <!-- <caption>Chat Conversation</caption> -->
+        <thead>
+            <tr>
+                <th>Sender</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Chat rows will be dynamically added here -->
+        </tbody>
+    </table>
+    <div class="logout-section" style="margin-top: 20px;">
+        <button onclick="logout()">Logout</button>
+    </div>
+            
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Dummy authentication for demonstration
+            if(username === "admin" && password === "password") {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+            } else {
+                alert("Invalid username or password");
+            }
+        }
+
+        function logout() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginBox').style.display = 'block';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // const blobUrl= "data:application/json;base64,WwogICAgewogICAgICAgICJyb2xlIjogImJvdCIsCiAgICAgICAgImNvbnRlbnQiOiAiSGkhIEhvdyBjYW4gSSBoZWxwIHlvdSB0b2RheT9wbHMgZW50ZXIgeW91ciBtYWlsIGlkIgogICAgfSwKICAgIHsKICAgICAgICAicm9sZSI6ICJ1c2VyIiwKICAgICAgICAiY29udGVudCI6ICJzZHNhIgogICAgfQpd"
+        // fetch(blobUrl)
+        //     .then(response => response.text())  // Read it as text
+        //     .then(data => {
+        //         displayData(JSON.parse(data));
+        //         // console.log("Data read from Blob URL:", data);
+        //         // document.getElementById("dataDisplay").innerText = data;    
+        //         // document.getElementById('output').textContent = data;
+        //         // // Optionally revoke the object URL to free memory
+        //         // URL.revokeObjectURL(blobUrl);
+        //     })
+        //     .catch(error => {
+        //         console.error("Error reading from Blob URL:", error);
+        //     });
+            const data = localStorage.getItem("chatMessages");
+            // displayData(JSON.parse(data));
+
+            // const tbody = document.querySelector('.chatTable tbody');
+
+        // Function to populate the table
+        populateTable(JSON.parse(data));
+        function populateTable(data) {
+            const tbody = document.querySelector('#chatTable tbody');
+            tbody.innerHTML = ''; // Clear existing rows if any
+
+            data.forEach(entry => {
+                const row = document.createElement('tr');
+
+                // const cellTime = document.createElement('td');
+                // cellTime.textContent = entry.timestamp;
+                // row.appendChild(cellTime);
+
+                const cellSender = document.createElement('td');
+                cellSender.textContent = entry.role;
+                row.appendChild(cellSender);
+
+                const cellMessage = document.createElement('td');
+                cellMessage.textContent = entry.content;
+                row.appendChild(cellMessage);
+
+                tbody.appendChild(row);
+        })
+    }
+
+
+        //     function displayData(data) {
+        //     const container = document.getElementById('dataDisplay');
+        //     container.innerHTML = '';
+
+        //     if(Array.isArray(data) && data.length > 0) {
+        //         let table = '<table><tr>';
+        //         // Add headers
+        //         for(let key in data[0]) {
+        //             table += `<th>${key}</th>`;
+        //         }
+        //         table += '</tr>';
+
+        //         // Add rows
+        //         data.forEach(item => {
+        //             table += '<tr>';
+        //             for(let key in item) {
+        //                 table += `<td>${item[key]}</td>`;
+        //             }
+        //             table += '</tr>';
+        //         });
+
+        //         table += '</table>';
+        //         container.innerHTML = table;
+        //     } else {
+        //         container.innerHTML = '<p>No valid data found in the file.</p>';
+        //     }
+        // }
+
+
+
+    </script>
+
+</body>
+</html>
