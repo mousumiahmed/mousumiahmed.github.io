@@ -152,17 +152,16 @@ footer {
 }
 .social-float a:hover { background:#ff09b5; transform:scale(1.1); }
 
-.free-services{
-    /* position:fixed;
-    top:60%;
-    left:10px;
-    transform:translateY(-50%);
-    display:flex;
-    flex-direction:column;
-    gap:15px; */
-    /* top:50%; */
-    float:right
+.free-services {
+    position: fixed;
+    top: 20%;
+    right: 10px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
+
 .free-services a {
     background:#151214; transform:scale(1.1); 
     color:#fff;
