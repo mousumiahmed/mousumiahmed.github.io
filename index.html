@@ -23,10 +23,15 @@
             </nav>
         </div>
         <div class="social-float">
+            
             <a href="https://www.facebook.com/groups/663125633219420"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-youtube"></i></a>
             <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fmousmi_mixbyte%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExd2tTTFE3Zk1RbVU2dVJpawEeimiKRfNbx-cDm4O5xElUxy34b8P5Ui0ybpZwHmJqIwyAeT8AOjSAYeTLlqw_aem_na9XA_bFbS1cL0V8LO7wZA&h=AT1FnCgpXsuqvVx4zEt9JMnc43YrOa4bidx7oLrA0Izwgzb_eUrMLKjSHDUzDgtOoqMU-ygum2JyYxScDQjh5TCeJS1xWEdQar6iGhwNrpmVgacEG0-M7B4IJU621fCZ3snY1doAmKUVuBXbS56j"><i class="fab fa-instagram"></i></a>
             <a href="https://www.linkedin.com/in/mousumi-mixbyte/"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="free-services">
+            <!-- <a href="cv.html" class="btn">Free Resume Builder</a> -->
+            <a href="createcv.html" class="btn">Free Resume Builder</a>
         </div>
     </header>
 
@@ -126,6 +131,7 @@ By combining these technologies, I design solutions that are not only scalable a
 
     <footer>
         <p>&copy; 2025 Modern Portfolio. All rights reserved.</p>
+        <p>Visitor Count: <span id="visitorCount">0</span></p>
     </footer>
 
     <script>
@@ -274,7 +280,13 @@ By combining these technologies, I design solutions that are not only scalable a
             
         //     }
 
-        // Send POST request
+        // Send POST request to count visitors and update count
+
+        let count = localStorage.getItem('visitorCount') || 0;
+        count = Number(count) + 1;
+        localStorage.setItem('visitorCount', count);
+        document.getElementById('visitorCount').textContent = count;
+
 
         
 

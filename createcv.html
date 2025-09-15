@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Resume Builder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            
+
+            button {
+                cursor: pointer;
+                background-color: #000;
+                color: #fff;
+                border-radius: 10px;
+                padding: 10px 15px;
+
+            }
+            button:hover {
+                background-color: #bd1a7c;
+        }
+    }
+        /* Popup container */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        /* Popup form */
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            width: 400px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #000;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            border: none;
+            background: none;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        #previewSection {
+            display: none;
+            margin: 20px 50px 30px 50px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            button {
+                float: right;
+            }
+            
+        }
+        #resumebuttonstyle {
+            cursor: pointer;
+            background-color: #000;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 15px;
+            display: block;
+            margin: 50px auto 0 auto;
+
+    }
+    #resumebuttonstyle:hover {
+                background-color: #bd1a7c;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- <h1>Resume Builder</h1> -->
+    <button id = "resumebuttonstyle" onclick="openPopup()">Build Your Resume</button>
+    
+
+    <div class="popup" id="resumePopup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup()">×</button>
+            <h2>Enter Your Details</h2>
+            <form id="resumeForm">
+                <label>Name:</label>
+                <input type="text" id="name" required>
+
+                <label>Email:</label>
+                <input type="email" id="email" required>
+
+                <label>Phone:</label>
+                <input type="text" id="phone" required>
+
+                <label>Summary:</label>
+                <textarea id="summary" rows="4" required></textarea>
+                
+                <button type="submit">Preview Resume</button>
+                
+            </form>
+        </div>
+        
+    </div>
+
+    <!-- Preview Section -->
+    <div id="previewSection">
+        <button type="submit" onclick="saveResume()">Generate PDF</button>
+        <h2>Resume Preview</h2>
+        <p><strong>Name:</strong> <span id="previewName"></span></p>
+        <p><strong>Email:</strong> <span id="previewEmail"></span></p>
+        <p><strong>Phone:</strong> <span id="previewPhone"></span></p>
+        <p><strong>Summary:</strong></p>
+        <p id="previewSummary"></p>
+        
+    </div>
+
+    <script>
+        function openPopup() {
+            document.getElementById('resumePopup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('resumePopup').style.display = 'none';
+        }
+
+        document.getElementById('resumeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const summary = document.getElementById('summary').value;
+
+            // Set preview
+            document.getElementById('previewName').textContent = name;
+            document.getElementById('previewEmail').textContent = email;
+            document.getElementById('previewPhone').textContent = phone;
+            document.getElementById('previewSummary').textContent = summary;
+
+            // Show preview and close popup
+            document.getElementById('previewSection').style.display = 'block';
+            closePopup();
+            // document.querySelector('#previewSection button').addEventListener('click', saveResume);
+
+            
+        });
+        function saveResume() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const name = document.getElementById('previewName').textContent;
+            const email = document.getElementById('previewEmail').textContent;
+            const phone = document.getElementById('previewPhone').textContent;
+            const summary = document.getElementById('previewSummary').textContent;
+
+            doc.setFontSize(16);
+            doc.text("Resume", 105, 20, null, null, "center");
+
+            doc.setFontSize(12);
+            doc.text(`Name: ${name}`, 10, 40);
+            doc.text(`Email: ${email}`, 10, 50);
+            doc.text(`Phone: ${phone}`, 10, 60);
+            doc.text("Summary:", 10, 70);
+            doc.text(summary, 10, 80, { maxWidth: 190 });
+
+            doc.save("resume.pdf");
+        }
+    </script>
+
+</body>
+</html>

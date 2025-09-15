@@ -152,6 +152,29 @@ footer {
 }
 .social-float a:hover { background:#ff09b5; transform:scale(1.1); }
 
+.free-services{
+    /* position:fixed;
+    top:60%;
+    left:10px;
+    transform:translateY(-50%);
+    display:flex;
+    flex-direction:column;
+    gap:15px; */
+    top:50%;
+    float:right
+}
+.free-services a {
+    background:#151214; transform:scale(1.1); 
+    color:#fff;
+    padding:10px;
+    border-radius:6px;
+    text-align:center;
+    /* font-size:18px; */
+    transition:0.3s;
+    text-decoration: none;
+}
+.free-services a:hover { background:#ff09b5; transform:scale(1.1); }
+
 .chat-box{
     float: right;
     margin-right:-20px
