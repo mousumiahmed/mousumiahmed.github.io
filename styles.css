@@ -160,7 +160,7 @@ footer {
     display:flex;
     flex-direction:column;
     gap:15px; */
-    top:50%;
+    /* top:50%; */
     float:right
 }
 .free-services a {
