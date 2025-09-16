@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cover Letter Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        textarea {
+            min-height: 150px;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cover Letter Builder</h1>
+        <form id="coverForm">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" required />
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required />
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" required />
+
+            <label for="company">Company Name</label>
+            <input type="text" id="company" required />
+
+            <label for="position">Position Applied For</label>
+            <input type="text" id="position" required />
+
+            <label for="message">Cover Letter Message</label>
+            <textarea id="message" required></textarea>
+
+            <button type="button" onclick="openPreview()">Generate Preview</button>
+        </form>
+    </div>
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+        function openPreview() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const company = document.getElementById("company").value;
+            const position = document.getElementById("position").value;
+            const message = document.getElementById("message").value;
+
+            const content = `Dear Hiring Manager,
+
+I am writing to express my interest in the ${position} position at ${company}. ${message}
+
+I am confident that my skills and experience make me a strong candidate for this role. Please feel free to contact me at ${email} or ${phone} for further discussion.
+
+Thank you for considering my application.
+
+Best regards,
+${name}`;
+
+            // Open popup window
+            const popup = window.open("", "_blank", "width=600,height=700");
+
+            // Assign content to the popup window safely
+            popup.coverContent = content;
+
+            popup.document.write(`
+                <html>
+                <head>
+                    <title>Cover Letter Preview</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; }
+                        h2 { text-align: center; color: #333; }
+                        pre { background: #fff; padding: 20px; border-radius: 8px; white-space: pre-wrap; word-wrap: break-word; }
+                        button { display: block; margin: 20px auto; background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
+                        button:hover { background-color: #45a049; }
+                    </style>
+                </head>
+                <body>
+                    <h2>Cover Letter Preview</h2>
+                    <pre id="letterContent"></pre>
+                    <button onclick="downloadPDF()">Download PDF</button>
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+                    <script>
+                        window.onload = function() {
+                            const content = window.opener.coverContent;
+                            document.getElementById("letterContent").innerText = content;
+                        };
+
+                        function downloadPDF() {
+                            const { jsPDF } = window.jspdf;
+                            const doc = new jsPDF();
+                            const text = document.getElementById("letterContent").innerText;
+                            doc.setFontSize(12);
+                            doc.text(text, 10, 10, { maxWidth: 180 });
+                            doc.save('cover-letter.pdf');
+                        }
+                    
+                </body>
+                </html>
+            `);
+            popup.document.close();
+        }
+    </script>
+</body>
+</html>

@@ -155,7 +155,7 @@ footer {
 .free-services {
     margin-top: 100px;
     position: fixed;
-    top: 10%;
+    top: 20%;
     right: 10px;
     transform: translateY(-50%);
     display: flex;
