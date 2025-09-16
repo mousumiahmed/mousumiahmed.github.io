@@ -153,8 +153,9 @@ footer {
 .social-float a:hover { background:#ff09b5; transform:scale(1.1); }
 
 .free-services {
+    margin-top: 100px;
     position: fixed;
-    top: 20%;
+    top: 10%;
     right: 10px;
     transform: translateY(-50%);
     display: flex;
