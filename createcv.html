@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <title>Resume Builder</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="createcv.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,11 +27,12 @@
     }
         /* Popup container */
         .popup {
-            display: none;
+            /* display: none; */
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            /* width: 100%; */
+            overflow: auto;
             height: 100%;
             background-color: rgba(0,0,0,0.5);
             align-items: center;
@@ -38,11 +42,26 @@
         .popup-content {
             background-color: #fff;
             padding: 20px;
-            width: 400px;
+            width: 100%;
             border-radius: 5px;
             box-shadow: 0 0 10px #000;
             position: relative;
+            display: flex;
+            align-items: flex-start;
+          
         }
+        .popup-content .form-container {
+            /* display: flex; */
+            flex-direction: row
+        }
+        .popup-content >.preview-container{
+            margin: 20px;
+            display: flex;
+            flex-direction: row;
+            max-height: 80vh;
+            
+        }
+        
         .close-btn {
             position: absolute;
             top: 10px;
@@ -81,6 +100,40 @@
     #resumebuttonstyle:hover {
                 background-color: #bd1a7c;
         }
+
+         .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .popup-content .preview-container {
+            background-color: #fff;
+            margin-top: -0px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            flex: 1 1 500px;
+            float: right;
+        }
+        .form-container, .preview-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            flex: 1 1 500px;
+        }
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+        }
+        #resumePreview > button{
+            
+                float:right
+            
+        }
         
     </style>
 </head>
@@ -93,38 +146,156 @@
     <div class="popup" id="resumePopup">
         <div class="popup-content">
             <button class="close-btn" onclick="closePopup()">×</button>
-            <h2>Enter Your Details</h2>
-            <form id="resumeForm">
-                <label>Name:</label>
-                <input type="text" id="name" required>
+        
+        <div class="container">
+        <!-- Form Section -->
+        <div class="form-container">
+            <h2>Build Your CV</h2>
+            <form id="resumeForm" onsubmit="event.preventDefault();">
 
-                <label>Email:</label>
-                <input type="email" id="email" required>
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Your name" oninput="updatePreview()">
 
-                <label>Phone:</label>
-                <input type="text" id="phone" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your email" oninput="updatePreview()">
 
-                <label>Summary:</label>
-                <textarea id="summary" rows="4" required></textarea>
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="Your phone number" oninput="updatePreview()">
+
+                <label for="profile">Profile</label>
+                <textarea id="profile" name="profile" placeholder="Write a brief profile summary" oninput="updatePreview()"></textarea>
+
+                <label for="skills">Skills (comma separated)</label>
+                <input type="text" id="skills" name="skills" placeholder="e.g. JavaScript, Python, SQL" oninput="updatePreview()">
+
+                <div class="dynamic-section">
+                    <label>Experience</label>
+                    <div id="experience-entries"></div>
+                    <button type="button" onclick="addExperience()">Add Experience</button>
+                </div>
+
+                <div class="dynamic-section">
+                    <label>Education</label>
+                    <div id="education-entries"></div>
+                    <button type="button" onclick="addEducation()">Add Education</button>
+                </div>
+                <label for="summary">Summary:</label>
+                <textarea id="summary" name="summary" oninput="updatePreview()"></textarea>
                 
-                <button type="submit">Preview Resume</button>
+                <!-- <button type="submit">Preview Resume</button> -->
+                
                 
             </form>
+            
         </div>
-        
+
+        <!-- Preview Section -->
+        <!-- <div class="preview-container">
+            <h2>Preview</h2>
+            <div class="preview-item">
+                <h3 id="preview-name">Your Name</h3>
+                <p id="preview-contact">Email: example@example.com | Phone: 1234567890</p>
+            </div>
+            <div class="preview-item">
+                <h3>Profile</h3>
+                <p id="preview-profile">A short summary about yourself will appear here.</p>
+            </div>
+            <div class="preview-item">
+                <h3>Skills</h3>
+                <div class="skills" id="preview-skills">
+                    <span>Example</span>
+                </div>
+            </div>
+            <div class="preview-item">
+                <h3>Experience</h3>
+                <ul id="preview-experience">
+                    <li>No experience added.</li>
+                </ul>
+            </div>
+            <div class="preview-item">
+                <h3>Education</h3>
+                <ul id="preview-education">
+                    <li>No education added.</li>
+                </ul>
+            </div>
+            <div class="preview-item">
+                <h3>Summary :</h3>
+                <p id="previewSummary">A short summary about yourself will appear here.</p>
+            </div> -->
+           
+<div class="preview-container" id="resumePreview">
+     <button type="button" onclick="generatePDFhtml2()">Download</button>
+    <!-- <h2 class="section-title"></h2> -->
+    
+    <div class="preview-header">
+        <h1 id="preview-name">Your Name</h1>
+        <p id="preview-contact">Email: example@example.com | Phone: 1234567890</p>
     </div>
 
-    <!-- Preview Section -->
-    <div id="previewSection">
-        <button type="submit" onclick="saveResume()">Generate PDF</button>
-        <h2>Resume Preview</h2>
-        <p><strong>Name:</strong> <span id="previewName"></span></p>
-        <p><strong>Email:</strong> <span id="previewEmail"></span></p>
-        <p><strong>Phone:</strong> <span id="previewPhone"></span></p>
-        <p><strong>Summary:</strong></p>
-        <p id="previewSummary"></p>
-        
+    <div class="preview-item">
+        <h3>Profile</h3>
+        <p id="preview-profile">A short summary about yourself will appear here.</p>
     </div>
+
+    <div class="preview-item">
+        <h3>Skills</h3>
+        <div class="skills" id="preview-skills">
+            <span class="skill-tag">Example</span>
+        </div>
+    </div>
+
+    <div class="preview-item">
+        <h3>Experience</h3>
+        <ul id="preview-experience">
+            <li>No experience added.</li>
+        </ul>
+    </div>
+
+    <div class="preview-item">
+        <h3>Education</h3>
+        <ul id="preview-education">
+            <li>No education added.</li>
+        </ul>
+    </div>
+
+    <div class="preview-item">
+                <h3>Summary :</h3>
+                <p id="preview-summary">short summary about yourself will appear here.</p>
+            </div> 
+     <!-- <button type="button" onclick="generatePDF()">Generate Preview as PDF</button> -->
+     
+</div>
+
+
+
+           
+            <!-- <button type="submit">Preview Resume</button> -->
+             <!-- <button type="button" onclick="generatePDF()">Generate Preview as PDF</button> -->
+
+        </div>
+    </div>
+    </div>
+    </div>
+        
+ 
+
+    <!-- Edit Preview Section -->
+     <!-- <div class="preview-container">
+        <div id="previewSection">
+        <button type="submit" onclick="saveResume()">Generate PDF</button>
+            <h2>Resume Preview</h2>
+                <div id="preview-name"></div>
+                <div id="preview-contact">Email and phone here</div>
+                <div id="preview-profile">Profile summary here</div>
+                <div id="preview-skills"><span>Example Skill</span></div>
+                <ul id="preview-experience"><li>No experience added.</li></ul>
+                <ul id="preview-education"><li>No education added.</li></ul>
+                <div id="previewSummary">summary</div>
+         </div>
+    </div> -->
+
+    </div>
+
 
     <script>
         function openPopup() {
@@ -137,16 +308,74 @@
 
         document.getElementById('resumeForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
+            const name = document.getElementById('fullname').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
-            const summary = document.getElementById('summary').value;
+            const profile = document.getElementById('profile').value;
+            const skills = document.getElementById('skills').value;
+            const exp_inputs = document.querySelectorAll('experience');
+            exp_inputs.forEach((input, index) => {
+                console.log(`Experience ${index + 1}: ${input.value}`);
+            });
+            const edu_inputs = document.querySelectorAll('education');
+            edu_inputs.forEach((input, index) => {
+                console.log(`Education ${index + 1}: ${input.value}`);
+            });
 
+            // const experience = document.getElementById('experience').value;
+            // const education = document.getElementById('education').value; 
+               
+            const summaryinp = document.getElementById('summary').value;
+            console.log("bhbhjbj",summaryinp,profile)
             // Set preview
-            document.getElementById('previewName').textContent = name;
-            document.getElementById('previewEmail').textContent = email;
-            document.getElementById('previewPhone').textContent = phone;
-            document.getElementById('previewSummary').textContent = summary;
+            document.getElementById('preview-name').textContent = name;
+            document.getElementById('preview-contact').textContent = email;
+            document.getElementById('preview-contact').textContent = phone;
+            document.getElementById('preview-profile').textContent = profile;
+            document.getElementById('preview-skills').textContent = skills;
+            document.getElementById('preview-summary').textContent = summaryinp;
+            
+            const input_exp = document.querySelectorAll('.experience-input');
+            const expList = document.getElementById('preview-experience');
+            let experiences =[];
+            input_exp.forEach((input) => {
+                if(input.value.trim() !== "") {
+                    experiences.push(input.value.trim());
+                }
+            });
+            if (experiences.length === 0) {
+                expList.innerHTML = "<li>No experience added.</li>";
+            } else {
+                expList.innerHTML = "";
+                experiences.forEach(exp => {    
+                    const li = document.createElement('li');
+                    li.textContent = exp;
+                    expList.appendChild(li);
+                });
+            }   
+            // document.getElementById('preview-education').textContent = education;
+            const input_edu = document.querySelectorAll('.education-input');
+            const eduList = document.getElementById('preview-education');
+            let educations =[];
+            input_edu.forEach((input) => {
+                if(input.value.trim() !== "") {
+                    educations.push(input.value.trim());
+                }
+            });
+
+            if (educations.length === 0) {
+                eduList.innerHTML = "<li>No education added.</li>";
+            } else {
+                eduList.innerHTML = "";
+                educations.forEach(edu => {    
+                    const li = document.createElement('li');
+                    li.textContent = edu;
+                    eduList.appendChild(li);
+                });
+            }   
+
+            // document.getElementById('previewSummary').textContent = summary;
+            
 
             // Show preview and close popup
             document.getElementById('previewSection').style.display = 'block';
@@ -155,27 +384,207 @@
 
             
         });
-        function saveResume() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+        // function saveResume() {
+        //     const { jsPDF } = window.jspdf;
+        //     const doc = new jsPDF();
 
-            const name = document.getElementById('previewName').textContent;
-            const email = document.getElementById('previewEmail').textContent;
-            const phone = document.getElementById('previewPhone').textContent;
-            const summary = document.getElementById('previewSummary').textContent;
+        //     const name = document.getElementById('previewName').textContent;
+        //     const email = document.getElementById('previewEmail').textContent;
+        //     const phone = document.getElementById('previewPhone').textContent;
+        //     const summary = document.getElementById('previewSummary').textContent;
 
-            doc.setFontSize(16);
-            doc.text("Resume", 105, 20, null, null, "center");
+        //     doc.setFontSize(16);
+        //     doc.text("Resume", 105, 20, null, null, "center");
 
-            doc.setFontSize(12);
-            doc.text(`Name: ${name}`, 10, 40);
-            doc.text(`Email: ${email}`, 10, 50);
-            doc.text(`Phone: ${phone}`, 10, 60);
-            doc.text("Summary:", 10, 70);
-            doc.text(summary, 10, 80, { maxWidth: 190 });
+        //     doc.setFontSize(12);
+        //     doc.text(`Name: ${name}`, 10, 40);
+        //     doc.text(`Email: ${email}`, 10, 50);
+        //     doc.text(`Phone: ${phone}`, 10, 60);
+        //     doc.text("Summary:", 10, 70);
+        //     doc.text(summary, 10, 80, { maxWidth: 190 });
 
-            doc.save("resume.pdf");
+        //     doc.save("resume.pdf");
+        // }
+
+
+        // update preview in real-time
+         let experienceCount = 0;
+        let educationCount = 0;
+
+        function updatePreview() {
+            document.getElementById('preview-name').textContent = document.getElementById('fullname').value || "Your Name";
+
+            const email = document.getElementById('email').value || "example@example.com";
+            const phone = document.getElementById('phone').value || "1234567890";
+            document.getElementById('preview-contact').textContent = `Email: ${email} | Phone: ${phone}`;
+
+            document.getElementById('preview-profile').textContent = document.getElementById('profile').value || "A short summary about yourself will appear here.";
+            
+            const skillsInput = document.getElementById('skills').value;
+            const skillsContainer = document.getElementById('preview-skills');
+            skillsContainer.innerHTML = "";
+            if(skillsInput.trim() !== "") {
+                const skills = skillsInput.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                skills.forEach(skill => {
+                    const span = document.createElement('span');
+                    span.textContent = skill;
+                    skillsContainer.appendChild(span);
+                });
+            } else {
+                skillsContainer.innerHTML = "<span>Example</span>";
+            }
+
+            // Update experience preview
+            const expList = document.getElementById('preview-experience');
+            expList.innerHTML = "";
+            const experienceEntries = document.querySelectorAll('.experience-input');
+            if(experienceEntries.length === 0) {
+                expList.innerHTML = "<li>No experience added.</li>";
+            } else {
+                experienceEntries.forEach(input => {
+                    const li = document.createElement('li');
+                    li.textContent = input.value || "Untitled experience";
+                    expList.appendChild(li);
+                });
+            }
+
+            // Update education preview
+            const eduList = document.getElementById('preview-education');
+            eduList.innerHTML = "";
+            const educationEntries = document.querySelectorAll('.education-input');
+            if(educationEntries.length === 0) {
+                eduList.innerHTML = "<li>No education added.</li>";
+            } else {
+                educationEntries.forEach(input => {
+                    const li = document.createElement('li');
+                    li.textContent = input.value || "Untitled education";
+                    eduList.appendChild(li);
+                });
+            }
         }
+
+        function addExperience() {
+            experienceCount++;
+            const container = document.getElementById('experience-entries');
+            const div = document.createElement('div');
+            div.classList.add('dynamic-entry');
+            div.innerHTML = `
+                <input type="text" class="experience-input" placeholder="Enter experience" oninput="updatePreview()">
+                <button type="button" class="remove-btn" onclick="removeEntry(this)">Remove</button>
+            `;
+            container.appendChild(div);
+            updatePreview();
+        }
+
+        function addEducation() {
+            educationCount++;
+            const container = document.getElementById('education-entries');
+            const div = document.createElement('div');
+            div.classList.add('dynamic-entry');
+            div.innerHTML = `
+                <input type="text" class="education-input" placeholder="Enter education" oninput="updatePreview()">
+                <button type="button" class="remove-btn" onclick="removeEntry(this)">Remove</button>
+            `;
+            container.appendChild(div);
+            updatePreview();
+        }
+
+        function removeEntry(button) {
+            button.parentElement.remove();
+            updatePreview();
+        }
+        // Assuming updatePreview() is already defined as you provided
+        console.log(document.getElementById("summary").value)
+        document.getElementById('preview-summary').textContent = document.getElementById("summary").value || " summary about yourself will appear here.";
+
+// function generatePDF() {
+//     // Make sure preview is updated before generating PDF
+//     updatePreview();
+
+//     // Import jsPDF
+//     const { jsPDF } = window.jspdf;
+//     const doc = new jsPDF();
+
+//     let y = 10; // Starting Y position
+
+//     // Get preview content
+//     const name = document.getElementById('preview-name').textContent;
+//     const contact = document.getElementById('preview-contact').textContent;
+//     const profile = document.getElementById('preview-profile').textContent;
+
+//     // Skills (join all span texts)
+//     const skills = Array.from(document.getElementById('preview-skills').children)
+//                     .map(span => span.textContent)
+//                     .join(", ");
+
+//     // Experience
+//     const experienceItems = Array.from(document.getElementById('preview-experience').children)
+//                             .map(li => li.textContent)
+//                             .join("\n");
+
+//     // Education
+//     const educationItems = Array.from(document.getElementById('preview-education').children)
+//                             .map(li => li.textContent)
+//                             .join("\n");
+//     const summary = document.getElementById('previewSummary').textContent;
+//     // Add content to PDF
+//     doc.setFontSize(16);
+//     doc.text(name, 10, y);
+//     y += 10;
+    
+//     doc.setFontSize(12);
+//     doc.text(contact, 10, y);
+//     y += 10;
+    
+//     doc.text("Profile:", 10, y);
+//     y += 6;
+//     doc.text(profile, 10, y);
+//     y += 10;
+    
+//     doc.text("Skills:", 10, y);
+//     y += 6;
+//     doc.text(skills, 10, y);
+//     y += 10;
+    
+//     doc.text("Experience:", 10, y);
+//     y += 6;
+//     doc.text(experienceItems, 10, y);
+//     y += 10 + (experienceItems.split("\n").length * 6);
+    
+//     doc.text("Education:", 10, y);
+//     y += 6;
+//     doc.text(educationItems, 10, y);
+
+//     doc.text("Summary :", 10, y)
+//     y += 6;
+//     doc.text(summary, 10, y);
+//     y += 10;
+
+//     // Save the PDF
+//     doc.save("cv-preview.pdf");
+// }
+
+
+       
+        updatePreview();
+
+
+
+//         // resume preview
+    function generatePDFhtml2() {
+    const element = document.getElementById('resumePreview');
+    const opt = {
+        margin: [-0.3,.5,.5,.5],
+        filename: 'Resume_Preview.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2,scrollY: 0,windowWidth: document.body.scrollWidth },
+        jsPDF: { unit: 'in', format: 'a4', 
+        // format: [8.5, 20], // Adjust height as needed
+
+        orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+}
     </script>
 
 </body>
