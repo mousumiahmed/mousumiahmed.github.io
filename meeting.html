@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Video Meeting</title>
+  <style>
+    video { width: 45%; margin: 10px; border: 1px solid #ccc; }
+    #container { display: flex; flex-direction: row; justify-content: center; }
+    #share-links { margin-top: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <h2 align="center">Simple Video Meeting</h2>
+
+  <div id="container">
+    <video id="localVideo" autoplay muted></video>
+    <video id="remoteVideo" autoplay></video>
+  </div>
+
+  <div id="share-links">
+    <p>Share this meeting link:</p>
+    <input type="text" id="meetingURL" readonly style="width: 60%;">
+    <br><br>
+    <a id="whatsappLink" target="_blank">Send via WhatsApp</a> | 
+    <a id="mailLink" target="_blank">Send via Email</a>
+  </div>
+
+  <script>
+    // Generate unique room ID
+    const roomID = window.location.pathname.split("/").pop() || Math.random().toString(36).substr(2, 9);
+    const meetingURL = `${window.location.origin}/${roomID}`;
+    document.getElementById('meetingURL').value = meetingURL;
+
+    // Create share links
+    const message = encodeURIComponent(`Join the meeting: ${meetingURL}`);
+    document.getElementById('whatsappLink').href = `https://wa.me/?text=${message}`;
+    document.getElementById('mailLink').href = `mailto:?subject=Meeting Invitation&body=${message}`;
+
+    // WebRTC Setup (simplified without signaling server)
+    const localVideo = document.getElementById('localVideo');
+    const remoteVideo = document.getElementById('remoteVideo');
+
+    const peer = new RTCPeerConnection();
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(stream => {
+        localVideo.srcObject = stream;
+        stream.getTracks().forEach(track => peer.addTrack(track, stream));
+      });
+
+    peer.ontrack = event => {
+      remoteVideo.srcObject = event.streams[0];
+    };
+
+    // Simplified - only works locally unless signaling is added
+    // This part is for demonstration only
+  </script>
+
+</body>
+</html>
