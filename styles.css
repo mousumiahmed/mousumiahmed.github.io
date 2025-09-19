@@ -91,7 +91,7 @@ h2 {
     text-align: center;
     p{
         display: inline-block;
-        background-color: #060707;
+        background-color: #ffffff;
         /* margin-left: 20px; */
         line-height: .5;
         font-size: 70%;
@@ -102,9 +102,7 @@ h2 {
     align-items: center;
     height: 100vh; */
 }
-.form-section{
-    background-color: #333;
-}
+
 
 form {
     max-width: 400px;
@@ -136,9 +134,9 @@ footer {
     padding: 20px;
     font-size: smaller;
 }
-      .canva-iframe{
-            width: 120%;
-            height: 300px;            /* limit size like Canva */
+      #canva-iframe{
+            width: 20%;
+            height: 220px;            /* limit size like Canva */
             /* aspect-ratio: 1 / 1;          keeps square shape (1:1), adjust if needed */
             border: none;                 /* no border */
             /* border-radius: 12px;          smooth rounded corners */
@@ -147,11 +145,16 @@ footer {
             /* margin: 20px auto;            center with spacing */
             /* overflow: hidden;      */
             /* box-shadow: 0 6px 18px rgba(59, 150, 168, 0.15);          */
-            background-color: #f8f7f7 !important;
-            margin-left: -100px;
+            background-color: #f8f7f7;
+            margin-left: 40%;
+            justify-content: center;
+            align-items: center;
     }
-    iframe{
-        background-color: #e7b728;
+    iframe #canva-iframe{
+       width: 300px;
+    height: 300px;
+    touch-action: none;
+    background-color: #f8f7f7;
     }
 .social-float {
   position:fixed;
