@@ -28,7 +28,8 @@
 
   <script>
     // Generate unique room ID
-    const roomID = window.location.pathname.split("/").pop() || Math.random().toString(36).substr(2, 9);
+    const roomID = Math.random().toString(36).substr(2, 9);
+    console.log(roomID)
     const meetingURL = `${window.location.origin}/${roomID}`;
     document.getElementById('meetingURL').value = meetingURL;
 
