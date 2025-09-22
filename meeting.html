@@ -24,11 +24,13 @@
     <br><br>
     <a id="whatsappLink" target="_blank">Send via WhatsApp</a> | 
     <a id="mailLink" target="_blank">Send via Email</a>
+
+    <button id="joinBtn">Join Meeting</button>
   </div>
 
   <script>
     // Generate unique room ID
-    const roomID = Math.random().toString(36).substr(2, 9);
+    const roomID = window.location.hash.substr(1) || Math.random().toString(36).substr(2, 9);
     console.log(roomID)
     const meetingURL = `${window.location.origin}/${roomID}`;
     document.getElementById('meetingURL').value = meetingURL;
@@ -56,6 +58,12 @@
 
     // Simplified - only works locally unless signaling is added
     // This part is for demonstration only
+
+    document.getElementById("joinBtn").addEventListener("click", () => {
+  const url = document.getElementById("meetingURL").value;
+  window.location.href = url; // Redirects user to meeting page
+});
+
   </script>
 
 </body>
