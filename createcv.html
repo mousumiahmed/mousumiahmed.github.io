@@ -468,7 +468,7 @@
         function generatePDFhtml2() {
             const element = document.getElementById('resumePreview');
             const opt = {
-                margin: [-0.3, .5, .5, .5],
+                margin: [-0.3, .5, 1.0, .5],
                 filename: 'Resume_Preview.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: { scale: 2, scrollY: 0, windowWidth: document.body.scrollWidth },
@@ -477,9 +477,23 @@
                     // format: [8.5, 20], // Adjust height as needed
 
                     orientation: 'portrait'
-                }
+                },
+                // /pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
             };
-            html2pdf().set(opt).from(element).save();
+            html2pdf()
+            .set(opt)
+            .from(element)
+            // .toPdf()
+            // .get('pdf')
+            // .then(function (pdf) {
+            // const pageCount = pdf.internal.getNumberOfPages();
+            // for (let i = 2; i <= pageCount; i++) {  // from 2nd page onwards
+            // pdf.setPage(i);
+            // pdf.setDrawColor(255, 255, 255); // white rectangle
+            // pdf.rect(0, 0, pdf.internal.pageSize.getWidth(), 40, 'F'); // adds 40px padding
+            // }
+            // })
+           .save();
         }
     </script>
 
