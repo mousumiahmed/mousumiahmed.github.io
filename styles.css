@@ -198,13 +198,14 @@ footer {
 
 .free-services a {
     background:#151214; transform:scale(1.1); 
-    color:#fff;
+    color:#f5f50b;
     padding:10px;
     border-radius:6px;
     text-align:center;
     /* font-size:18px; */
     transition:0.3s;
     text-decoration: none;
+    box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
 }
 .free-services a:hover { background:#ff09b5; transform:scale(1.1); }
 

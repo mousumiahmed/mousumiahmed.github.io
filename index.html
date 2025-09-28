@@ -209,7 +209,7 @@ On the Data Science side, I utilized Python for statistical analysis, machine le
 
     <footer>
         <p>&copy; 2025 Modern Portfolio. All rights reserved.</p>
-        <p>Visitor Count: <span id="visitorCount">0</span></p>
+        <!-- <p>Visitor Count: <span id="visitorCount">0</span></p> -->
         
     </footer>
 
@@ -295,10 +295,11 @@ On the Data Science side, I utilized Python for statistical analysis, machine le
         }
        
 
-        let count = localStorage.getItem('visitorCount') || 0;
-        count = Number(count) + 1;
-        localStorage.setItem('visitorCount', count);
-        document.getElementById('visitorCount').textContent = count;
+    // fetch("https://api.countapi.xyz/hit/https://mousumiahmed.github.io/visit")
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     document.getElementById("visitorCount").innerText = data.value;
+    //   });
 
 
 //read more
