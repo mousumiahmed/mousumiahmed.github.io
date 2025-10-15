@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel='stylesheet' href='https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
     <link rel="stylesheet" href="styles.css" />
+    
     <script src='https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
 </head>
 
@@ -15,6 +16,7 @@
     <header>
         <div class="container">
             <div>
+                <!-- <img style="height: 25px;width: 25px;" src="Mlogo-removebg-preview.jpg" alt="Logo" class="logo" /> -->
                 <h1 style="color: rgb(215, 13, 134);">Mousumi Ara Ahmed </h1>
                 <p>Mixbyte Inc - Founder cum owner/Software engineer</p>
             </div>
@@ -50,9 +52,13 @@
                 <!-- <div class="card"> -->
                 <div class="aboutme">
                     <h3></h3>
-                    <p>I am a Software Engineer with hands-on experience in developing full-stack projects such as a Library Management System and ERP solutions, designed to manage complex workflows, data operations, and reporting across industries including banking, supply chain, and product development. These solutions were built using ReactJS for dynamic, responsive front-end interfaces, Java with Spring Boot for secure and efficient RESTful APIs, MySQL for optimized structured data management, and Python for microservices supporting analytics and reporting.
+                    <p>I’m a Software Engineer with hands-on experience in building and deploying full-stack enterprise solutions that streamline complex workflows, data operations, and reporting for industries such as banking, supply chain, and product development.
 
-Key modules included cataloging, inventory tracking, user management, billing, and CRM, delivering real-world benefits such as workflow automation, improved service delivery, and data-driven decision-making. I implemented best practices like role-based access control, JWT authentication, scalable microservices architecture, responsive design, and robust data validation, ensuring high performance, reliability, and seamless user experiences. Additionally, I am passionate about entrepreneurship and leadership, with experience in leading teams and managing projects effectively.</p>
+My technical expertise spans ReactJS for dynamic, responsive user interfaces, Java with Spring Boot for secure and scalable RESTful APIs, MySQL for optimized data management, and Python for analytics-driven microservices. I’ve successfully developed key modules including cataloging, inventory tracking, user management, billing, and CRM, driving tangible impact through workflow automation, improved service delivery, and data-driven decision-making.
+
+I follow engineering best practices—implementing role-based access control, JWT authentication, scalable microservices architectures, responsive design principles, and robust data validation—to ensure high performance, reliability, and seamless user experiences.
+
+Beyond coding, I bring a strong entrepreneurial mindset and leadership skills, with a proven track record of leading teams and managing projects effectively from concept to deployment.</p>
                 </div>
             </div>
         </div>
@@ -62,7 +68,7 @@ Key modules included cataloging, inventory tracking, user management, billing, a
         <div class="container">
             <h2> Services & Projects</h2>
             <div class="container bootstrap snippets bootdeys" style="z-index: 1;">
-        <div class="row">
+        <div class="row rowlayout">
             <div class="col-md-4 col-sm-6 content-card">
                 <div class="card-big-shadow">
                     <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
@@ -198,7 +204,7 @@ On the Data Science side, I utilized Python for statistical analysis, machine le
                     </div>
                     <div class="chat-footer">
                         <input type="text" id="chat-input" placeholder="Type your message..." />
-                        <button onclick="sendMessage()">Send</button>
+                        <button onclick="sendMessage()" class="send-btn">Send</button>
                         <pre id="output"></pre>
                     </div>
 

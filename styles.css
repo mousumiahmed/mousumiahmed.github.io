@@ -268,7 +268,7 @@ footer {
             background: #151214; transform:scale(1.1); 
             color: white;
             border: none;
-            padding: 5px 12px;
+            margin-left: 30px;
             cursor: pointer;
             border-radius: 10px;
             transition: background 0.3s;
@@ -382,7 +382,7 @@ a:hover, a:focus {
 
 /*======== COLORS ===========*/
 .card[data-color="blue"] {
-    background: #282726;
+    background: black;
 }
 .card[data-color="blue"] .description {
     color: #bd2483;
@@ -391,50 +391,50 @@ a:hover, a:focus {
 }
 
 .card[data-color="green"] {
-    background: #282726;
+    background: black;
 }
 .card[data-color="green"] .description {
-    color: #60773d;
+    color: #bd2483;
 }
 .card[data-color="green"] .category {
     color: #92ac56;
 }
 
 .card[data-color="yellow"] {
-    background: #282726;
+    background: black;
 }
 .card[data-color="yellow"] .description {
-    color: #b25825;
+    color: #bd2483;
 }
 .card[data-color="yellow"] .category {
     color: #d88715;
 }
 
 .card[data-color="brown"] {
-    background: #282726;
+    background: black;
 }
 .card[data-color="brown"] .description {
-    color: #3e29dc;
+    color: #bd2483;
 }
 .card[data-color="brown"] .category {
     color: #a47e65;
 }
 
 .card[data-color="purple"] {
-    background: #282726;
+    background: black;
 }
 .card[data-color="purple"] .description {
-    color: #f4c031;
+    color: #bd2483;
 }
 .card[data-color="purple"] .category {
     color: #5a283d;
 }
 
 .card[data-color="orange"] {
-    background: #282726;
+    background: black;
 }
 .card[data-color="orange"] .description {
-    color: #f23708;
+    color: #bd2483;
 }
 .card[data-color="orange"] .category {
     color: #e95e37;
@@ -613,9 +613,14 @@ a:hover, a:focus {
 }
 
 .read-more-btn {
-        color: #28a745;
+        color: blueviolet;
         cursor: pointer;
         display: inline-block;
       float: right;
     }
+
+.rowlayout{
+    /* margin-right: -15px; */
+    margin-left: -40px;
+}
 
