@@ -10,7 +10,26 @@
     <link rel="stylesheet" href="styles.css" />
     
     <script src='https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<style>
+    h3 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    #chart-container {
+        width: 80%;
+        max-width: 900px;
+        margin: auto;
+        background: rgb(21, 21, 21);
+        height: 300px;
+        
+        padding: 10px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+</style>
 
 <body>
     <header>
@@ -26,15 +45,18 @@
                 <a href="#services">Services</a>
                 <a href="#contact">Contact</a>
                 <a href="login.html">Admin</a>
+                <a href="#repo"></a>
             </nav>
         </div>
         <div class="social-float">
 
             <a href="https://www.facebook.com/groups/663125633219420" style="color: blue;"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-youtube" style="color: rgb(212, 47, 14)"></i></a>
-            <a
+            <!-- <a 
                 href="https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.instagram.com%2Fmousmi_mixbyte%3Ffbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExd2tTTFE3Zk1RbVU2dVJpawEeimiKRfNbx-cDm4O5xElUxy34b8P5Ui0ybpZwHmJqIwyAeT8AOjSAYeTLlqw_aem_na9XA_bFbS1cL0V8LO7wZA&h=AT1FnCgpXsuqvVx4zEt9JMnc43YrOa4bidx7oLrA0Izwgzb_eUrMLKjSHDUzDgtOoqMU-ygum2JyYxScDQjh5TCeJS1xWEdQar6iGhwNrpmVgacEG0-M7B4IJU621fCZ3snY1doAmKUVuBXbS56j"><i
-                    class="fab fa-instagram" style="color: rgb(223, 15, 112)"></i></a>
+                    class="fab fa-instagram" style="color: rgb(223, 15, 112)"></i></a>-->
+            <a href="https://github.com/mousumiahmed" target="_blank"><i class="fab fa-github fa-x"></i></a>
+
             <a href="https://www.linkedin.com/in/mousumi-mixbyte/" style="color: blue;"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <div class="free-services" style="z-index: 2;">
@@ -158,6 +180,15 @@ On the Data Science side, I utilized Python for statistical analysis, machine le
         </div>
         </div>
     </section>
+     <section id ="repo" class="section">
+        <!-- GitHub Insigts -->
+        <h3>GitHub Repo's: Graphical Insights</h3>
+
+        <div id="chart-container">
+            <canvas id="repoChart"></canvas>
+        </div>
+
+    </section>
 
 
 
@@ -192,6 +223,8 @@ On the Data Science side, I utilized Python for statistical analysis, machine le
             </div>
 
     </section>
+   
+        
     <section>
             <div class="chat-box">
                 <div class="chat-widget" id="chat-widget">
@@ -322,6 +355,62 @@ On the Data Science side, I utilized Python for statistical analysis, machine le
             });
         }
     }
+
+    // #Github Repo Chart
+    const username = "mousumiahmed";   // ← Change this
+
+async function loadRepos() {
+    const url = `https://api.github.com/users/${username}/repos?per_page=200&sort=created`;
+    const response = await fetch(url);
+    const repos = await response.json();
+
+    const yearCounts = {};
+
+    repos.forEach(repo => {
+        const year = new Date(repo.created_at).getFullYear();
+        yearCounts[year] = (yearCounts[year] || 0) + 1;
+    });
+
+    const years = Object.keys(yearCounts).sort((a, b) => a - b);
+    const counts = years.map(year => yearCounts[year]);
+
+    // 🎨 Color for each bar
+    const barColors = [
+        '#3c02eb', '#d70d86', '#eb0221', '#02e7eb',
+        '#59a14f', '#edc949', '#af7aa1', '#ff9da7',
+        '#9c755f', '#bab0ab'
+    ];
+
+    createChart(years, counts, barColors);
+}
+
+function createChart(labels, data, colors) {
+    const ctx = document.getElementById('repoChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'radar',
+       
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Number of Repos',
+                data: data,
+                backgroundColor: colors.slice(1, data.length),
+                borderColor: colors.slice(0, data.length),
+                barThickness: 40,
+                borderWidth: 2,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+}
+loadRepos();
 
     </script>
 </body>
