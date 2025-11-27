@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discussion Forum</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #eef3fa;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    #forumContainer {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .post, .reply {
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 15px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .reply {
+        margin-left: 40px;
+        background: #f7f7f7;
+    }
+
+    .timestamp {
+        font-size: 12px;
+        color: gray;
+    }
+
+    input, textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        border-radius: 6px;
+        border: 1px solid #bbb;
+        font-size: 15px;
+    }
+
+    button {
+        background: #011020;
+        color: white;
+        cursor: pointer;
+        border: none;
+    }
+
+    button:hover {
+        background: #a50643;
+    }
+</style>
+</head>
+<body>
+
+<h1>Discussion Forum</h1>
+
+<div id="forumContainer">
+
+    <!-- New Post Form -->
+    <div class="post">
+        <h3>Create New Post</h3>
+        <input type="text" id="postTitle" placeholder="Title">
+        <textarea id="postMessage" placeholder="Write your message..."></textarea>
+        <button onclick="addPost()">Post</button>
+    </div>
+
+    <hr>
+
+    <!-- Posts will be displayed here -->
+    <div id="posts"></div>
+
+</div>
+
+<script>
+/* ------------------------------
+    Load Saved Posts
+------------------------------- */
+let posts = JSON.parse(localStorage.getItem("forumPosts") || "[]");
+renderPosts();
+
+/* ------------------------------
+    Add a New Post
+------------------------------- */
+function addPost() {
+    const title = document.getElementById("postTitle").value.trim();
+    const message = document.getElementById("postMessage").value.trim();
+
+    if (!title || !message) {
+        alert("Please fill in both fields.");
+        return;
+    }
+
+    const newPost = {
+        id: Date.now(),
+        title,
+        message,
+        time: new Date().toLocaleString(),
+        replies: []
+    };
+
+    posts.push(newPost);
+    savePosts();
+    renderPosts();
+
+    document.getElementById("postTitle").value = "";
+    document.getElementById("postMessage").value = "";
+}
+
+/* ------------------------------
+    Add Reply to a Post
+------------------------------- */
+function addReply(id) {
+    const replyText = document.getElementById("replyInput-" + id).value.trim();
+    if (!replyText) return;
+
+    const post = posts.find(p => p.id === id);
+    post.replies.push({
+        text: replyText,
+        time: new Date().toLocaleString()
+    });
+
+    savePosts();
+    renderPosts();
+}
+
+/* ------------------------------
+    Save to LocalStorage
+------------------------------- */
+function savePosts() {
+    localStorage.setItem("forumPosts", JSON.stringify(posts));
+}
+
+/* ------------------------------
+    Render All Posts
+------------------------------- */
+function renderPosts() {
+    const container = document.getElementById("posts");
+    container.innerHTML = "";
+
+    posts.forEach(post => {
+        const div = document.createElement("div");
+        div.className = "post";
+
+        div.innerHTML = `
+            <h3>${post.title}</h3>
+            <p>${post.message}</p>
+            <div class="timestamp">${post.time}</div>
+
+            <h4>Replies:</h4>
+            <div>
+                ${post.replies.map(r => `
+                    <div class="reply">
+                        ${r.text}
+                        <div class="timestamp">${r.time}</div>
+                    </div>
+                `).join("")}
+            </div>
+
+            <textarea id="replyInput-${post.id}" placeholder="Write a reply..."></textarea>
+            <button onclick="addReply(${post.id})">Reply</button>
+        `;
+
+        container.appendChild(div);
+    });
+}
+</script>
+
+</body>
+</html>
